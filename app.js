@@ -30,7 +30,7 @@ app.use(session({
 
 //sets up the inital load of the page
 app.get('/', function(req, res){
- res.render('index', {wordToPlay, lettersGuessed});
+ res.render('index', {wordToPlay, count});
  req.session.word = randomWord;
 });
 

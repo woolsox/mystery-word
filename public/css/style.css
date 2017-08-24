@@ -18,6 +18,7 @@ h1 {
 }
 
 .letters h2 {
+  visibility: hidden;
   margin: 0;
   padding: 10px 10px;
 }
