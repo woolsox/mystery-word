@@ -18,6 +18,7 @@ app.use(express.static(__dirname + '/public'));
 //variables for usage in the game
 let randomWord = words[Math.floor(Math.random() * words.length)];
 let wordToPlay = [...randomWord];
+let correctGuess = [];
 let lettersGuessed = [];
 let count = 8;
 
@@ -30,8 +31,10 @@ app.use(session({
 
 //sets up the inital load of the page
 app.get('/', function(req, res){
+ // console.log(lettersGuessed);
  res.render('index', {wordToPlay, count});
  req.session.word = randomWord;
+ console.log(wordToPlay);
 });
 
 //posts submissions from the guess form
@@ -40,8 +43,9 @@ app.get('/', function(req, res){
 app.post('/', function(req, res){
   let guess = req.body.guess;
   checkWord(guess);
-  res.render('index', {wordToPlay, lettersGuessed, count});
-  console.log(lettersGuessed.length);
+  res.render('index', {wordToPlay, correctGuess, lettersGuessed, count});
+  console.log(lettersGuessed);
+  console.log(req.body.guess);
   if (count === 0) {
     console.log('you lost!')
   }
@@ -53,6 +57,8 @@ app.listen(port);
 //function to check user input against mystery word letters
 function checkWord(guess) {
   if (wordToPlay.includes(guess)) {
+   correctGuess.push(guess);
+   console.log(correctGuess);
    console.log('hell yea!')
  } else {
    lettersGuessed.push(guess);

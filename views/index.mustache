@@ -10,11 +10,11 @@
    <h1>Mystery Word Game</h1>
    <div class="word">
     {{#wordToPlay}}
-      <div class="hidden letters"><h2>{{.}}</h2></div>
+      <div id="letters">{{correctGuess}}</div>
     {{/wordToPlay}}
    </div>
    <form action="/" method="post">
-      <input type="text" name="guess" placeholder="Guess a letter!" maxlength="1" required/>
+      <input type="text" name="guess" placeholder="Guess a letter!" maxlength="1" autofocus required/>
       <button type="submit">Submit</button>
    </form>
    <p>
