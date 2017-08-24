@@ -8,9 +8,13 @@
  </head>
  <body>
    <h1>Mystery Word Game</h1>
-   <h2>{{wordToPlay}}</h2>
+   <div class="word">
+    {{#wordToPlay}}
+      <div class="hidden letters"><h2>{{.}}</h2></div>
+    {{/wordToPlay}}
+   </div>
    <form action="/" method="post">
-      <input type="text" name="guess" placeholder="Guess a letter!" maxlength="1"/>
+      <input type="text" name="guess" placeholder="Guess a letter!" maxlength="1" required/>
       <button type="submit">Submit</button>
    </form>
    <p>

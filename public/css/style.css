@@ -2,8 +2,24 @@ h1 {
  text-align: center;
 }
 
-h2 {
+.word {
+ display: flex;
+ flex-direction: row;
+ justify-content: space-around;
+}
+
+.letters {
+ margin: 50px 0;
+ height: 40px;
+ width: 40px;
  text-align: center;
+ vertical-align: middle;
+ border-bottom: 1px solid black;
+}
+
+.letters h2 {
+  margin: 0;
+  padding: 10px 10px;
 }
 
 form {
@@ -12,6 +28,8 @@ form {
 
 p {
  text-align: center;
+ text-transform: capitalize;
+ color: red;
 }
 
 h4 {
