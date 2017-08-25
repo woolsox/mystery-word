@@ -8,10 +8,12 @@
  </head>
  <body>
    <h1>Mystery Word Game</h1>
+   <h2 class="lose">{{gameLose}}</h2>
+   <h2 class="win">{{gameWin}}</h2>
    <div class="word">
-    {{#wordToPlay}}
-      <div id="letters">{{correctGuess}}</div>
-    {{/wordToPlay}}
+    {{#wordDisplay}}
+      <div id="letters"><h2>{{.}}</h2></div>
+    {{/wordDisplay}}
    </div>
    <form action="/" method="post">
       <input type="text" name="guess" placeholder="Guess a letter!" maxlength="1" autofocus required/>
