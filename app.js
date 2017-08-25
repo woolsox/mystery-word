@@ -63,14 +63,16 @@ function checkWord(guess) {
       while (~correctGuess) {
       hiddenWord[correctGuess] = guess;
       correctGuess = wordToPlay.indexOf(guess, correctGuess + 1);
-      console.log(hiddenWord);
-      console.log('hiddenWord^');
-      console.log(correctGuess);
-      console.log('correctGuess^');
-      console.log(guess);
-      console.log('guess^');
-      console.log(hiddenWord.length);
-      console.log('hiddenWord.length^');
+      // console.log(hiddenWord);
+      // console.log('hiddenWord^');
+      // console.log(correctGuess);
+      // console.log('correctGuess^');
+      // console.log(guess);
+      // console.log('guess^');
+      // console.log(wordToPlay);
+      // console.log('wordToPlay^');
+      // console.log(wordDisplay);
+      // console.log('wordDisplay^');
     }
  } else {
    lettersGuessed.push(guess);
@@ -86,10 +88,11 @@ function gameOver() {
 }
 
 function gameWon() {
-  if (hiddenWord === wordToPlay) {
-    gameWin = "You've won!"
+    if (wordDisplay.indexOf(wordToPlay)) {
+      gameWin = "You've won!"
+      console.log('test this bitch out!')
+    }
   }
-}
 
 // graveyard
 
