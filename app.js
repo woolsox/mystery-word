@@ -15,6 +15,7 @@ app.use(body.json());
 app.use(body.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 
+// words[Math.floor(Math.random() * words.length)];
 //variables for usage in the game
 let gameLose;
 let gameWin;
@@ -23,6 +24,7 @@ let wordToPlay = [...randomWord];
 let hiddenWord = [...randomWord];
 let wordDisplay = hiddenWord.fill('');
 let lettersGuessed = [];
+let correctWords = [];
 let count = 8;
 
 //setting up a session for each request to the page
@@ -45,9 +47,9 @@ app.get('/', function(req, res){
 app.post('/', function(req, res){
   let guess = req.body.guess.toLowerCase();
   checkWord(guess);
+  res.render('index', {wordToPlay, wordDisplay, lettersGuessed, count, gameLose, gameWin, correctWords});
   gameOver();
   gameWon();
-  res.render('index', {wordToPlay, wordDisplay, lettersGuessed, count, gameLose, gameWin});
 })
 
 //listens for port 3000 on local host
@@ -94,9 +96,25 @@ function gameOver() {
 
 function gameWon() {
     if (!wordDisplay.includes('')) {
+      generateNextWord();
       gameWin = "You've won!"
+      count = 8;
     }
   }
+
+// in progress...close to working, just need to make it clear
+// the display for the next word. otherwise the correctWordsword list is working
+function generateNextWord() {
+  correctWords.push(randomWord);
+  randomWord = [];
+  randomWord = words[Math.floor(Math.random() * words.length)];
+  wordToPlay = [...randomWord];
+  hiddenWord = [...randomWord];
+  wordDisplay = hiddenWord.fill('');
+  lettersGuessed = [];
+  gameWin = [];
+  console.log(randomWord);
+}
 
 // graveyard
 
