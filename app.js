@@ -19,13 +19,14 @@ app.use(express.static(__dirname + '/public'));
 //variables for usage in the game
 let gameLose;
 let gameWin;
-let randomWord = words[Math.floor(Math.random() * words.length)];
+let randomWord = "test";
 let wordToPlay = [...randomWord];
 let hiddenWord = [...randomWord];
 let wordDisplay = hiddenWord.fill('');
 let lettersGuessed = [];
 let correctWords = [];
 let count = 8;
+let score = 0;
 
 //setting up a session for each request to the page
 app.use(session({
@@ -36,9 +37,8 @@ app.use(session({
 
 //sets up the inital load of the page
 app.get('/', function(req, res){
- res.render('index', {wordToPlay, wordDisplay, count});
+ res.render('index', {wordToPlay, wordDisplay, count, score});
  req.session.word = randomWord;
- console.log(wordToPlay);
 });
 
 //posts submissions from the guess form
@@ -47,8 +47,7 @@ app.get('/', function(req, res){
 app.post('/', function(req, res){
   let guess = req.body.guess.toLowerCase();
   checkWord(guess);
-  res.render('index', {wordToPlay, wordDisplay, lettersGuessed, count, gameLose, gameWin, correctWords});
-  gameOver();
+  res.render('index', {wordToPlay, wordDisplay, lettersGuessed, count, gameLose, gameWin, correctWords, score});
   gameWon();
 })
 
@@ -62,6 +61,7 @@ app.listen(port);
 function checkWord(guess) {
  //checks if the word in play includes the users input
   if (wordToPlay.includes(guess)) {
+      score++;
     // correctGuess is assignsed the index positions which
     // match the users input, in this case it grabs the first
     // of multiple matches, or just a single match if there's
@@ -73,37 +73,42 @@ function checkWord(guess) {
       // multiple indices whose values greater than -1. In this case
       // it acts as a catch for any subsequent instances of matches being made.
       while (~correctGuess) {
-      // displays matches on game board
+      // displays matches on game board based on correct guesses/matched indices
       hiddenWord[correctGuess] = guess;
       // resets correctGuess value to -1 to break the while loop if
       // there are no more possible matches.
       correctGuess = wordToPlay.indexOf(guess, correctGuess + 1);
+      console.log(wordDisplay);
     }
  } else {
    // pushes incorrect guesses to be displayed
    lettersGuessed.push(guess);
    // reduces count by 1
-   count--;
+   if (count > 1) {
+    count--;
+   }
+   else {
+    gameOver();
+   }
  }
 }
 
 function gameOver() {
-  while (count <= 0) {
+    gameWin = [];
     gameLose = "You've lost!"
-    count = "No more guesses!"
-  }
+    count = "0"
 }
 
 function gameWon() {
     if (!wordDisplay.includes('')) {
       generateNextWord();
-      gameWin = "You've won!"
+      gameWin = "Nice work! Keep going!"
       count = 8;
     }
   }
 
 // in progress...close to working, just need to make it clear
-// the display for the next word. otherwise the correctWordsword list is working
+// the display for the next word. otherwise the correctWords list is working
 function generateNextWord() {
   correctWords.push(randomWord);
   randomWord = [];
@@ -115,22 +120,3 @@ function generateNextWord() {
   gameWin = [];
   console.log(randomWord);
 }
-
-// graveyard
-
-// function revealLetters(guess) {
-//   for (let i = 0; i < wordToPlay.length; i++) {
-//     if (wordToPlay[i].includes(guess)) {
-//       correctGuess.push(guess);
-//       console.log(wordToPlay);
-//       console.log('test');
-//       console.log(correctGuess);
-//       console.log(wordToPlay[i]);
-//     }
-//   }
-// }
-
-// counter w/ lose message
-// if (count === 0) {
-//   console.log('you lost!')
-// }

@@ -8,22 +8,26 @@
   <link rel="stylesheet" type="text/css" href="/css/style.css" />
  </head>
  <body>
-   <h1 class="title">Mystery Word Game</h1>
-   <h2 class="lose">{{gameLose}}</h2>
-   <h2 class="win">{{gameWin}}</h2>
-   <div class="word">
-    {{#wordDisplay}}
-      <div id="letters"><h2>{{.}}</h2></div>
-    {{/wordDisplay}}
+   <div class="gameWrap">
+      <h1 class="title">Mystery Word</h1>
+      <h2 class="lose">{{gameLose}}</h2>
+      <h2 class="win">{{gameWin}}</h2>
+    <div class="word">
+        {{#wordDisplay}}
+          <div class="letters"><h2>{{.}}</h2></div>
+        {{/wordDisplay}}
    </div>
    <form class="guess" action="/" method="post">
-      <input type="text" name="guess" placeholder="Guess a letter!" maxlength="1" autofocus required/>
-      <button type="submit">Submit</button>
+      <input type="text" name="guess" maxlength="1" autocomplete="off" autofocus required/>
+      <!-- <button type="submit">Submit</button> -->
    </form>
-   <p>
-     Letters guessed: {{lettersGuessed}}
-   </p>
-   <h4>Guesses remaining: {{count}}</h4>
+     <h4 class="lettersGuessed">Incorrect Letters:</h4>
+     <h4 class='wrongLetters'>{{lettersGuessed}}</h4>
+     <h4 class="count">Guesses Remaining: {{count}}</h4>
+   <div class="scoreboard">
+     <p class="words">Correct Words:</p>
+     <p class="score">Score: {{score}}</p>
+   </div>
    <div class="correctWords">
      {{#correctWords}}
      <li>
