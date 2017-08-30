@@ -68,30 +68,21 @@
 
 .guess input {
   margin: 0;
-  width: 25px;
+  width: 50px;
   border: none;
   outline: none;
   background: transparent;
-  color: #ff6314;
+  color: #5d5d5d;
   font-size: 30px;
   text-transform: capitalize;
   text-align: center;
   vertical-align: center;
 }
 
-.guess button {
-  visibility: hidden;
-  background-color: #d7d7d7;
-  color: #5d5d5d;
-  text-align: center;
-  border: none;
-  font-size: 12px;
-}
-
 .lettersGuessed {
  text-align: center;
  background-color: #ffffff;
- color: #5296dd;
+ color: #5d5d5d;
 }
 
 .wrongLetters {
@@ -104,7 +95,7 @@
 .count {
  text-align: center;
  background-color: #ffffff;
- color: #5296dd;
+ color: #5d5d5d;
 }
 
 .scoreboard {

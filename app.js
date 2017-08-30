@@ -15,11 +15,10 @@ app.use(body.json());
 app.use(body.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 
-// words[Math.floor(Math.random() * words.length)];
 //variables for usage in the game
 let gameLose;
 let gameWin;
-let randomWord = "test";
+let randomWord = words[Math.floor(Math.random() * words.length)];
 let wordToPlay = [...randomWord];
 let hiddenWord = [...randomWord];
 let wordDisplay = hiddenWord.fill('');
@@ -27,6 +26,7 @@ let lettersGuessed = [];
 let correctWords = [];
 let count = 8;
 let score = 0;
+let nextWord = [];
 
 //setting up a session for each request to the page
 app.use(session({
@@ -47,7 +47,7 @@ app.get('/', function(req, res){
 app.post('/', function(req, res){
   let guess = req.body.guess.toLowerCase();
   checkWord(guess);
-  res.render('index', {wordToPlay, wordDisplay, lettersGuessed, count, gameLose, gameWin, correctWords, score});
+  res.render('index', {wordToPlay, wordDisplay, lettersGuessed, count, gameLose, gameWin, correctWords, score, nextWord});
   gameWon();
 })
 
@@ -78,7 +78,6 @@ function checkWord(guess) {
       // resets correctGuess value to -1 to break the while loop if
       // there are no more possible matches.
       correctGuess = wordToPlay.indexOf(guess, correctGuess + 1);
-      console.log(wordDisplay);
     }
  } else {
    // pushes incorrect guesses to be displayed
@@ -110,6 +109,7 @@ function gameWon() {
 // in progress...close to working, just need to make it clear
 // the display for the next word. otherwise the correctWords list is working
 function generateNextWord() {
+  nextWord = "Next Word!"
   correctWords.push(randomWord);
   randomWord = [];
   randomWord = words[Math.floor(Math.random() * words.length)];
@@ -118,5 +118,4 @@ function generateNextWord() {
   wordDisplay = hiddenWord.fill('');
   lettersGuessed = [];
   gameWin = [];
-  console.log(randomWord);
 }
